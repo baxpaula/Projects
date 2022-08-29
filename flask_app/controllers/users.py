@@ -1,5 +1,6 @@
 from flask import render_template,redirect,request,session,flash
 from flask_app import app
+from flask_app.models.address import Address
 from flask_app.models.user import User
 from flask_app.models.product import Product
 from flask_bcrypt import Bcrypt
@@ -73,16 +74,35 @@ def login():
     session['user_id'] = user.id
     return redirect('/dashboard')
 
-@app.route('/success/<int:user_id>')
-def edit(user_id):
-    data = { 
-        "id": user_id
-    }
-
-    return render_template("account_page.html", user = User.get_by_id(data))
 
 
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect('/')
+
+@app.route("/account/<int:user_id>")
+def userAccount(user_id):
+    data = { 
+        "id": user_id
+    }
+    return render_template("accountPage.html", user = User.get_one_user(data))
+
+@app.route("/address_add", methods=['POST'])
+def save_address():
+    if 'user_id' not in session:
+        return redirect('/logout')
+    if not Address.validate_address(request.form):
+        return redirect('/address_add')
+    
+    data = {
+        "street": request.form["street"],
+        "city": request.form["city"],
+        "state": request.form["state"],
+        "zip": request.form["zip"],
+        "user_id": session["user_id"]
+    }
+
+    address_id = Address.add_address(data)
+    print(address_id)
+    return redirect('/dashboard')
