@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>address add</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='/css/style1.css') }}">
+    </head>
+    <body>
+        <div id="navbar">
+            <h1 style="margin: 0px;">Account Information</h1>
+            <div class="nav2">
+                <a href="/dashboard">Home</a> |
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        <div class="main">
+            <form action="/address_add" method="POST">
+                <h2>{{user.first_name}}'s Address</h2>
+                <div>
+                    <label for="street">Street:</label>
+                    <input type="text" name="street" id="street">
+                </div>
+                <div>
+                    <label for="city">City:</label>
+                    <input type="text" name="city" id="city">
+                </div>
+                <div>
+                    <label for="state">State:</label>
+                    <input type="text" name="state" id="state">
+                </div>
+                <div>
+                    <label for="zip">Zip Code:</label>
+                    <input type="text" name="zip" id="zip">
+                </div>
+                <input id="linkbtn" type="submit">
+                    {% with messages = get_flashed_messages(category_filter=['addressadd']) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="validation">{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+            </form>
+        </div>
+    </body>
+</html>

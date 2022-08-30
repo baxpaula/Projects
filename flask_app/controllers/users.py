@@ -34,6 +34,7 @@ def dashboard():
         'id': session['user_id']
     }
     user = User.get_one_user(user_data)
+    print(user)
     return render_template('dashboard.html', user = user)
 
 @app.route('/update/<int:user_id>',methods=['POST'])
@@ -86,14 +87,24 @@ def userAccount(user_id):
     data = { 
         "id": user_id
     }
-    return render_template("accountPage.html", user = User.get_one_user(data))
+    user = User.get_one_user(data)
+    print(user)
+    address = Address.get_user_address(data)
+    return render_template("accountPage.html", user = user, address = address)
+
+@app.route("/addAdressPage/<int:user_id>")
+def addAddressUser(user_id):
+    data = { 
+        "id": user_id
+    }
+    return render_template("addAddress.html", user = User.get_one_user(data))
 
 @app.route("/address_add", methods=['POST'])
 def save_address():
     if 'user_id' not in session:
         return redirect('/logout')
     if not Address.validate_address(request.form):
-        return redirect('/address_add')
+        return redirect('/addAdressPage')
     
     data = {
         "street": request.form["street"],

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="main">
+        <form action="/address_edit" method="POST">
+            <h2>User Address{{address.state}}</h2>
+            <div>
+                <label for="street">Street:</label>
+                <input type="text" name="street" id="street">
+            </div>
+            <div>
+                <label for="city">City:</label>
+                <input type="text" name="city" id="city">
+            </div>
+            <div>
+                <label for="state">State:</label>
+                <input type="text" name="state" id="state">
+            </div>
+            <div>
+                <label for="zip">Zip Code:</label>
+                <input type="text" name="zip" id="zip">
+            </div>
+            <input id="linkbtn" type="submit">
+                {% with messages = get_flashed_messages(category_filter=['addressadd']) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="validation">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+        </form>
+    </div>
+</body>
+</html>

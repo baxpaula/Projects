@@ -10,40 +10,19 @@
     </head>
     <body>
         <div id="navbar">
-            <h1 style="margin: 0px;">Account Information</h1>
+            <h1 style="margin: 0px;">{{user.first_name}}'s Account Information</h1>
             <div class="nav2">
                 <a href="/dashboard">Home</a> |
                 <a href="/logout">Logout</a>
             </div>
         </div>
-        <div class="main">
-            <form action="/address_add" method="POST">
-                <h2>User Address</h2>
-                <div>
-                    <label for="street">Street:</label>
-                    <input type="text" name="street" id="street">
-                </div>
-                <div>
-                    <label for="city">City:</label>
-                    <input type="text" name="city" id="city">
-                </div>
-                <div>
-                    <label for="state">State:</label>
-                    <input type="text" name="state" id="state">
-                </div>
-                <div>
-                    <label for="zip">Zip Code:</label>
-                    <input type="text" name="zip" id="zip">
-                </div>
-                <input id="linkbtn" type="submit">
-                    {% with messages = get_flashed_messages(category_filter=['addressadd']) %}
-                        {% if messages %}
-                            {% for message in messages %}
-                                <p class="validation">{{message}}</p>
-                            {% endfor %}
-                        {% endif %}
-                    {% endwith %}
-            </form>
-        </div>
+        <a href="/addAdressPage/{{user.id}}">add address</a>
+        <h1>My address</h1>
+        <p>Street : {{address.street}}</p>
+        <p>City : {{address.city}}</p>
+        <p>State : {{address.state}}</p>
+        <p>Zip : {{address.zip}}</p>
+        <a href="#">Click to Edit address</a>
+        
     </body>
 </html>

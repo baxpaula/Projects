@@ -1,6 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 from flask_app.models import user
+import pprint
 
 db = 'eCommerce'
 
@@ -14,6 +15,7 @@ class Address:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.user_id = data['user_id']
+        self.users = None
 
     @classmethod
     def add_address(cls,data):
@@ -22,7 +24,36 @@ class Address:
         return results
 
 
-
+    @classmethod
+    def get_user_address(cls,data):
+        query = "SELECT * FROM users JOIN addresses on addresses.user_id = users.id WHERE users.id = %(id)s;"
+        results = connectToMySQL(db).query_db(query, data)
+        print('$$$$')
+        print(results)
+        print('$$$$')
+        if results:
+            userAddress = cls(results[0])
+            for row_from_db in results:
+                print(row_from_db)
+                user_data = {
+                    'id' : row_from_db['id'],
+                    'first_name' : row_from_db['first_name'],
+                    'last_name' : row_from_db['last_name'],
+                    'email' : row_from_db['email'],
+                    'password' : row_from_db['password'],
+                    'id': row_from_db['addresses.id'],
+                    "street": row_from_db['street'],
+                    "city": row_from_db['city'],
+                    "state": row_from_db['state'],
+                    "zip": row_from_db['zip'],
+                    'created_at' : row_from_db['addresses.created_at'],
+                    "updated_at" : row_from_db["addresses.updated_at"]
+                }
+                
+                userAddress.users = (user.User(user_data))
+                print(userAddress)
+            return userAddress
+        return False
 
     @staticmethod
     def validate_address(address):
