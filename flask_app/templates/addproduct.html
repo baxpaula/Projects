@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>address add</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='/css/style1.css') }}">
+    </head>
+    <body>
+        <div id="navbar">
+            <h1 style="margin: 0px;">Add Product</h1>
+            <div class="nav2">
+                <a href="/dashboard">Home</a> |
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        <div class="main">
+            <form action="/productadd" method="POST">
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name">
+                </div>
+                <div>
+                    <label for="description">Description:</label><br>
+                    <textarea name="description" id="description" cols="30" rows="5"></textarea>
+                </div>
+                <div>
+                    <label for="qty">Qty:</label>
+                    <input type="text" name="qty" id="qty">
+                </div>
+                <div>
+                    <label for="price">Price:</label>
+                    <input type="text" name="price" id="price">
+                </div>
+                <input id="linkbtn" type="submit">
+                    {% with messages = get_flashed_messages(category_filter=['productadd']) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="validation">{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+            </form>
+        </div>
+    </body>
+</html>

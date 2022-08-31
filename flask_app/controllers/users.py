@@ -1,3 +1,4 @@
+import imp
 from flask import render_template,redirect,request,session,flash
 from flask_app import app
 from flask_app.models.address import Address
@@ -5,6 +6,7 @@ from flask_app.models.user import User
 from flask_app.models.product import Product
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
+from pprint import pprint
 
 @app.route('/')
 def index():
@@ -34,8 +36,8 @@ def dashboard():
         'id': session['user_id']
     }
     user = User.get_one_user(user_data)
-    print(user)
-    return render_template('dashboard.html', user = user)
+    products = Product.get_all_products()
+    return render_template('dashboard.html', user = user, products = products)
 
 @app.route('/update/<int:user_id>',methods=['POST'])
 def update(user_id):

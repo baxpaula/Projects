@@ -1,7 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 from flask_app.models import user
-import pprint
+from pprint import pprint
 
 db = 'eCommerce'
 
@@ -28,9 +28,7 @@ class Address:
     def get_user_address(cls,data):
         query = "SELECT * FROM users JOIN addresses on addresses.user_id = users.id WHERE users.id = %(id)s;"
         results = connectToMySQL(db).query_db(query, data)
-        print('$$$$')
-        print(results)
-        print('$$$$')
+        pprint(results)
         if results:
             userAddress = cls(results[0])
             for row_from_db in results:
@@ -51,7 +49,7 @@ class Address:
                 }
                 
                 userAddress.users = (user.User(user_data))
-                print(userAddress)
+                pprint(userAddress)
             return userAddress
         return False
 
