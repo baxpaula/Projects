@@ -6,7 +6,7 @@
         <title>address add</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', filename='/css/style1.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
     </head>
     <body>
         <div id="navbar">
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="main">
-            <form action="/productadd" method="POST">
+            <form action="/productadd" method=post  enctype=multipart/form-data>
                 <div>
                     <label for="name">Name:</label>
                     <input type="text" name="name" id="name">
@@ -31,8 +31,12 @@
                     <input type="text" name="qty" id="qty">
                 </div>
                 <div>
-                    <label for="price">Price:</label>
+                    <label>Price:</label>
                     <input type="text" name="price" id="price">
+                </div>
+                <div>
+                    <label>Upload picture</label>
+                    <input type="file" name="file">
                 </div>
                 <input id="linkbtn" type="submit">
                     {% with messages = get_flashed_messages(category_filter=['productadd']) %}

@@ -1,4 +1,3 @@
-from math import prod
 from pprint import pprint
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
@@ -17,10 +16,11 @@ class Product:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.user_id = data['user_id']
+        self.image_path = data['image_path']
 
     @classmethod
     def add_Product(cls, data):
-        query = "INSERT INTO products (name, description, qty, price, user_id) VALUES (%(name)s, %(description)s, %(qty)s, %(price)s, %(user_id)s);"
+        query = "INSERT INTO products (name, description, qty, price, user_id, image_path) VALUES (%(name)s, %(description)s, %(qty)s, %(price)s, %(user_id)s, %(image_path)s);"
         results = connectToMySQL(db).query_db(query, data)
         return results
 

@@ -1,0 +1,15 @@
+img{
+    width: 305px;
+    height: 300px;
+}
+
+#header{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    align-items: center;
+}
+
+.btn{
+    margin-left: 80px;
+}
