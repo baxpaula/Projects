@@ -1,3 +1,4 @@
+from itertools import product
 from pprint import pprint
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
@@ -23,6 +24,13 @@ class Product:
         query = "INSERT INTO products (name, description, qty, price, user_id, image_path) VALUES (%(name)s, %(description)s, %(qty)s, %(price)s, %(user_id)s, %(image_path)s);"
         results = connectToMySQL(db).query_db(query, data)
         return results
+    
+    @classmethod
+    def get_one_product(cls,data):
+        query = "SELECT * FROM products WHERE products.id =%(product_id)s;"
+        results = connectToMySQL(db).query_db(query, data)
+        return cls(results[0])
+
 
     @classmethod
     def get_all_products(cls):
@@ -33,6 +41,16 @@ class Product:
         for product in results:
             products.append(cls(product))
         return products
+
+    @classmethod
+    def update_product(cls, data):
+        query = "UPDATE products SET name=%(name)s, description=%(description)s, qty=%(qty)s, price=%(price)s, image_path=%(image_path)s WHERE id =%(product_id)s;"
+        return connectToMySQL(db).query_db(query,data)
+    @classmethod
+    def delete_product(cls,data):
+        query = "DELETE FROM products WHERE id = %(product_id)s;"
+        result = connectToMySQL(db).query_db(query, data)
+        return result
 
     @staticmethod
     def validate_product(product):

@@ -37,7 +37,7 @@ def dashboard():
     }
     user = User.get_one_user(user_data)
     products = Product.get_all_products()
-    return render_template('dashboard.html', user = user, products = products)
+    return render_template('admin_dashboard.html', user = user, products = products)
 
 @app.route('/update/<int:user_id>',methods=['POST'])
 def update(user_id):
