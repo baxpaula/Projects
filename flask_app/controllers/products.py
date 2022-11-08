@@ -1,7 +1,6 @@
-from crypt import methods
-from itertools import product
 from flask_app.models.product import Product
 from flask_app.models.user import User
+from flask_app.models.product_cat import Category
 from pprint import pprint
 from flask import render_template,redirect,request,session,flash
 from flask_app import app
@@ -22,7 +21,10 @@ def create_product():
     data = { 
         "id": session["user_id"]
     }
-    return render_template("addproduct.html", user = User.get_one_user(data))
+    user = User.get_one_user(data)
+    pprint(user)
+    categories = Category.get_all_categories()
+    return render_template("addproduct.html", user = user, categories = categories)
 
 @app.route("/productadd", methods=['GET','POST'])
 def save_product():
@@ -56,6 +58,12 @@ def save_product():
 
         product_id = Product.add_Product(data)
         pprint(product_id)
+        category_dict = {
+            "category_id": request.form["category_id"],
+            "product_id" : product_id
+        }
+        cat_id = Category.add_product_to_category(category_dict)
+        pprint(cat_id)
     return redirect('/dashboard')
 
 @app.route("/edit_product/<int:product_id>")
@@ -109,3 +117,8 @@ def del_product(product_id):
         return redirect('/logout')
     Product.delete_product({"product_id":product_id})
     return redirect('/dashboard')
+
+# @app.route("/search", methods=['GET', 'POST'])
+# def search_product():
+#     product = request.form["product"]
+#     cursor.execute("SELECT name from ")

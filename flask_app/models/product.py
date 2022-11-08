@@ -1,4 +1,3 @@
-from itertools import product
 from pprint import pprint
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
