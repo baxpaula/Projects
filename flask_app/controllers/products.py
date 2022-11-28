@@ -1,6 +1,7 @@
 from flask_app.models.product import Product
 from flask_app.models.user import User
 from flask_app.models.product_cat import Category
+from flask_app.models.shoppingCart import ShoppingCart
 from pprint import pprint
 from flask import render_template,redirect,request,session,flash
 from flask_app import app
@@ -118,7 +119,8 @@ def del_product(product_id):
     Product.delete_product({"product_id":product_id})
     return redirect('/dashboard')
 
-# @app.route("/search", methods=['GET', 'POST'])
-# def search_product():
-#     product = request.form["product"]
-#     cursor.execute("SELECT name from ")
+@app.route("/addToCart/<int:product_id>")
+def add_product_to_cart(product_id):
+    pass
+
+

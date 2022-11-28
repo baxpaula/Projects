@@ -66,19 +66,3 @@ class User:
             flash("Your password do not match.", 'register')
             is_valid = False
         return is_valid
-
-    def validate_login(user):
-        is_valid = True
-        query = "SELECT * FROM users WHERE email = %(email)s;"
-        results = connectToMySQL(db).query_db(query,user)
-        if len(user['email']) < 8:
-            flash("email does not match", "login")
-            is_valid = False
-        if not EMAIL_REGEX.match(user['email']):
-            flash("Provide a proper email","login")
-            is_valid=False
-        if len(user['password']) < 8:
-            flash("Password is invalid","login")
-            is_valid = False
-        return is_valid
-    

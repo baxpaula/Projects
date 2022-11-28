@@ -12,11 +12,11 @@
     <h1>Welcome {{user.first_name}}</h1>
     <div id="nav">
         <div id="nav1">
-            <a class="link1" href="">Dashboard</a>
+            <a class="link1" href="/account/{{user.id}}">Account</a>
             <a href=""class="link1" >Orders</a>
             <a href="/createProduct" class="link1">Create a new product</a>
             <a href="" class="link1">Products</a>
-            <a href=""id="link">Log off</a>
+            <a href="/logout"id="link">Log off</a>
         </div>
     </div>
     <div>
@@ -50,5 +50,6 @@
             {% endfor %}
         </tbody>
     </table>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </body>
 </html>

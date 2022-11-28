@@ -5,13 +5,13 @@ img{
 
 #header{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-top: 30px;
     align-items: center;
 }
 
 .btn{
-    margin-left: 80px;
+    margin-left: 10px;
 }
 
 .link1{
@@ -30,7 +30,7 @@ img{
     display: flex;
     background-color:aqua;
     height: 60px;
-    width: 1300px;
+    width: 1500px;
     
 }
 

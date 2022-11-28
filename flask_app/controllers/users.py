@@ -37,7 +37,10 @@ def dashboard():
     }
     user = User.get_one_user(user_data)
     products = Product.get_all_products()
-    return render_template('admin_dashboard.html', user = user, products = products)
+    if session['user_id'] != 1:
+        return render_template('dashboard.html', user = user, products = products)
+    else:
+        return render_template('admin_dashboard.html', user = user, products = products)
 
 @app.route('/update/<int:user_id>',methods=['POST'])
 def update(user_id):
@@ -64,16 +67,13 @@ def loginUser():
 
 @app.route('/login',methods=['POST'])
 def login():
-    if not User.validate_login(request.form):
-        return redirect('/')
-
     user = User.get_by_email(request.form)
     if not user:
         flash("Invalid Email","login")
-        return redirect('/')
-    elif not bcrypt.check_password_hash(user.password, request.form['password']):
+        return redirect('/loginPage')
+    if not bcrypt.check_password_hash(user.password, request.form['password']):
         flash("Invalid password","login")
-        return redirect('/')
+        return redirect('/loginPage')
     session['user_id'] = user.id
     return redirect('/dashboard')
 
